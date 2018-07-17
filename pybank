@@ -35,3 +35,29 @@ print("Total: $",sum_rev)
 print("Average Change: $",round((total_chg/(total_mth-1)),2))
 print("Greatest Increase in Profits: ",mth_grt_inc_rev, ' ($',int(grt_inc_rev),')')
 print("Greatest Decrease in Profits: ",mth_grt_dec_rev, ' ($',int(grt_dec_rev),')')
+
+file = 'pypoll.txt'
+with open(file, 'r') as text:
+  print('Financial Analysis')
+    print('----------------------------')
+    for row in reader:
+        if cur_row > 1:
+            last_mth_rev = this_mth_rev
+        this_mth_rev = float(row['Revenue'])
+        if cur_row > 1:
+            chg_mth = this_mth_rev - last_mth_rev
+            total_chg = total_chg + chg_mth
+            if chg_mth > grt_inc_rev:
+                grt_inc_rev = chg_mth
+                mth_grt_inc_rev = row['Date']
+            if chg_mth < grt_dec_rev:
+                grt_dec_rev = chg_mth
+                mth_grt_dec_rev = row['Date']    
+        sum_rev = sum_rev + this_mth_rev
+        total_mth = total_mth + 1
+        cur_row += 1
+print("Total Months:",total_mth)
+print("Total: $",sum_rev)
+print("Average Change: $",round((total_chg/(total_mth-1)),2))
+print("Greatest Increase in Profits: ",mth_grt_inc_rev, ' ($',int(grt_inc_rev),')')
+print("Greatest Decrease in Profits: ",mth_grt_dec_rev, ' ($',int(grt_dec_rev),')')
